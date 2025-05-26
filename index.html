@@ -11,9 +11,9 @@
   <div class="container">
     <h1>🍌 Banana...or na?</h1>
     <div class="image-wrapper">
-      <img id="banana-img" src="" alt="Random Banana Art" />
+      <img id="banana-img" src="" alt="Loading..." style="opacity: 0;" />
     </div>
-    <p id="caption"></p>
+    <p id="caption">Loading...</p>
 
     <a href="https://buy.stripe.com/aFa8wR72O8zY9wn4PkgrS01" target="_blank" class="donate-btn">
       🍌Support My Art💸
@@ -56,7 +56,10 @@
     
 
           const caption = captions[Math.floor(Math.random() * captions.length)];
-          document.getElementById('caption').textContent = caption;
+          
+    document.getElementById('banana-img').style.opacity = 1;
+    document.getElementById('caption').textContent = caption;
+    
         }
       }, 100);
     });
