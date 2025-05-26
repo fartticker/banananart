@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banana of the Moment 🍌</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>🍌 Banana of the Moment</h1>
+    <div class="image-wrapper">
+      <img id="banana-img" src="" alt="Random Banana Art" />
+    </div>
+    <p id="caption"></p>
+
+    <a href="https://buy.stripe.com/your-donation-link" target="_blank" class="donate-btn">
+      💛 Support My Banana Obsession
+    </a>
+
+    <div class="share-buttons">
+      <button onclick="share('twitter')">🐦 Share</button>
+      <button onclick="share('facebook')">📘</button>
+      <button onclick="copyLink()">📎</button>
+    </div>
+  </div>
+
+  <script src="captions.js"></script>
+  <script>
+    const totalImages = 50;
+    let availableImages = [];
+
+    for (let i = 1; i <= totalImages; i++) {
+      const img = new Image();
+      img.src = `bananas/banana${i}.jpg`;
+      img.onload = () => availableImages.push(img.src);
+      img.onerror = () => {};
+    }
+
+    window.addEventListener('load', () => {
+      const checkLoaded = setInterval(() => {
+        if (availableImages.length > 0) {
+          clearInterval(checkLoaded);
+          const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)];
+          document.getElementById('banana-img').src = randomImg;
+
+          const caption = captions[Math.floor(Math.random() * captions.length)];
+          document.getElementById('caption').textContent = caption;
+        }
+      }, 100);
+    });
+
+    function share(platform) {
+      const url = encodeURIComponent(location.href);
+      const text = encodeURIComponent("🍌 Here's today's banana: ");
+      const links = {
+        twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`
+      };
+      window.open(links[platform], "_blank");
+    }
+
+    function copyLink() {
+      navigator.clipboard.writeText(location.href)
+        .then(() => alert("Link copied!"))
+        .catch(() => alert("Copy failed."));
+    }
+  </script>
+</body>
+</html>
