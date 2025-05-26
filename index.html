@@ -19,10 +19,12 @@
       💛 Support My Banana Obsession
     </a>
 
-    <div class="share-buttons">
-      <button onclick="share('twitter')">🐦 Share</button>
-      <button onclick="share('facebook')">📘</button>
-      <button onclick="copyLink()">📎</button>
+    <p style="font-size: 0.95em; margin-top: 2em;">Share Banananart with your people:</p>
+<div class="share-buttons">
+      <button onclick="share('twitter')">🐦 Twitter</button>
+      <button onclick="share('facebook')">📘 Facebook</button>
+      <button onclick="share('reddit')">👽 Reddit</button>
+    <button onclick="copyLink()">📎 Copy Link</button>
     </div>
   </div>
 
@@ -43,7 +45,15 @@
         if (availableImages.length > 0) {
           clearInterval(checkLoaded);
           const randomImg = availableImages[Math.floor(Math.random() * availableImages.length)];
-          document.getElementById('banana-img').src = randomImg;
+          
+    const lastImg = localStorage.getItem("lastBanana");
+    let newImg = randomImg;
+    while (availableImages.length > 1 && newImg === lastImg) {
+      newImg = availableImages[Math.floor(Math.random() * availableImages.length)];
+    }
+    document.getElementById('banana-img').src = newImg;
+    localStorage.setItem("lastBanana", newImg);
+    
 
           const caption = captions[Math.floor(Math.random() * captions.length)];
           document.getElementById('caption').textContent = caption;
